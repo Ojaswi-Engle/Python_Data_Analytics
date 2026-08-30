@@ -124,4 +124,85 @@ r.length=12
 r.height=4
 print(r.area())
 print(r.is_square())
-    
+
+'''Q-4: Problem 4
+Statement: Write a program that uses datetime module within a class. 
+Enter manufacturing date and expiry date of the product. 
+The program must display the years, months and days that are left for expiry.'''
+from datetime import datetime,date
+class Date:
+    def __init__(self,exp_date):
+        self.exp_date=exp_date
+
+    def display_difference(self):
+        curr=date.today()
+        exp=datetime.strptime(self.exp_date,'%d-%m-%Y').date()
+        if exp<curr:
+            print('Product expired')
+            return 
+
+        exp_day=exp.day
+        exp_month=exp.month
+        exp_year=exp.year
+
+        days=exp.day-curr.day
+        if days<0:
+            if exp.month==1:
+                borrow=12
+            else:
+                borrow=exp.month-1
+            l=[1,3,5,7,8,10,12]
+
+            if borrow in l:
+                exp_day+=31
+            elif borrow==2:
+                if (exp_year%400==0 or (exp_year%4==0 and exp_year%100!=0)):
+                    exp_day+=29
+                else:
+                    exp_day+=28
+                     
+            else:
+                exp_day+=30
+
+            days=exp_day-curr.day
+            exp_month-=1
+
+        months=exp_month-curr.month
+
+        if months<0:
+            exp_month+=12
+            exp_year-=1
+            months=exp_month-curr.month
+
+        years=exp_year-curr.year
+
+        print('{} days ,{} months ,{} years  are left for expiry'.format(days,months,years))
+d1 = Date("02-09-2026")
+d1.display_difference()
+
+d2 = Date("30-09-2026")
+d2.display_difference()
+
+d3 = Date("28-02-2027")
+d3.display_difference()
+
+d4 = Date("29-02-2028")
+d4.display_difference()
+
+d5 = Date("28-02-2028")
+d5.display_difference()
+
+d6 = Date("30-08-2026")
+d6.display_difference()
+
+d7 = Date("31-08-2026")
+d7.display_difference()
+
+d8 = Date("01-09-2027")
+d8.display_difference()
+
+d9 = Date("28-02-2029")
+d9.display_difference()
+
+d10 = Date("29-02-2024")
+d10.display_difference()
