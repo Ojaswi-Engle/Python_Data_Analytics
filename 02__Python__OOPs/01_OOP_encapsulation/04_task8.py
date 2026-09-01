@@ -394,7 +394,7 @@ class Bowl:
             scoop_price=scoop.get_price()
             total_price+=scoop_price
 
-        print('Price of Bowl - {}'.format(total_price))
+        print('Price of Bowl {} - {}'.format(Bowl.__bowl_sold,total_price))
 
     @staticmethod
     def sold():
@@ -420,6 +420,159 @@ bowl.display()
 
 Scoop.sold()
 Bowl.sold()
+
+'''Q-7:Ice-Cream Bowl continue..
+Making advancement in the above classes. Scoop and Bowl
+
+Introduce a property max_scoops in Bowl class to signify maximum scoops that a bowl can have, exceeding that it will display Bowl is full. Take default value as 3.
+
+no_of_scoop in Scoop class with default value of 1
+
+Print <flavour> added with every scoop added.
+
+# Testing Code-1 
+
+choco = Scoop('chocolate', 1)
+choco.set_price(100)
+print(choco)
+
+
+berry = Scoop('berry', 2)
+berry.set_price(120)
+print(berry)
+
+vanilla = Scoop('vanilla') # no of scoop parameter not given, will take default value
+vanilla.set_price(150)
+print(vanilla)
+
+Output:
+
+Flavor - chocolate, No of Scoops - 1, Price - 100
+Flavor - berry, No of Scoops - 2, Price - 120
+Flavor - vanilla, No of Scoops - 1, Price - 150
+Testing code-2 considering above test code executed
+
+bowl1 = Bowl() # max_scoop parameter not given, will take default value
+bowl1.add_scoops(choco) # Giving one parameter
+bowl1.add_scoops(berry, vanilla) # Multiple
+bowl1.display()
+Output
+
+chocolate added
+berry added
+Bowl is full
+Dsiplaying Bowl-1
+Flavor - chocolate, No of Scoops - 1, Price - 100
+Flavor - berry, No of Scoops - 2, Price - 120
+Price of Bowl-1: 340
+Testing code-3, considering above tests executed
+
+# Tetsing code-3
+
+bowl2 = Bowl(2)
+bowl2.add_scoops(berry)
+bowl2.add_scoops(choco)
+
+bowl2.display()
+Bowl.sold()
+
+Output:
+
+berry added
+chocolate not added. Bowl is full!!
+Dsiplaying Bowl-2
+Flavor - berry, No of Scoops - 2, Price - 120
+Price of Bowl-2: 240
+2 bowls sold'''
+class Scoop:
+    __scoop_sold=0
+
+    def __init__(self,flavour,no_of_scoop=1):
+        self.flavour=flavour
+        self.__price=None
+        Scoop.__scoop_sold+=1
+        self.no_of_scoop=no_of_scoop
+
+    def set_price(self,price):
+        self.__price=price
+
+    def get_price(self):
+        return self.__price
+
+    def __str__(self):
+        return 'Flavour - {} ,No of Scoops- {} , Price - {}'.format(self.flavour,self.no_of_scoop,self.__price)
+
+    @staticmethod
+    def sold():
+        print( '{} scoops sold'.format(Scoop.__scoop_sold))
+
+class Bowl:
+    __bowl_sold=0
+
+    def __init__(self,max_scoops=3):
+        self.__scoop_list=[]
+        Bowl.__bowl_sold+=1
+        self.max_scoops=max_scoops
+        self.scoops=0
+
+    def add_scoops(self,*args):
+        for scoop in args:
+            
+            if self.scoops+scoop.no_of_scoop <=self.max_scoops:
+                print(scoop.flavour,'added')
+                self.__scoop_list.append(scoop)
+                self.scoops+=scoop.no_of_scoop
+            else:
+                print('{} not added ,Bowl is full'.format(scoop.flavour))
+                return
+
+    def display(self):
+        total_price=0
+        print('Displaying Bowl -',Bowl.__bowl_sold)
+        for scoop in self.__scoop_list:
+            print(scoop)
+            scoop_price=scoop.get_price()
+            total_price+=scoop_price*scoop.no_of_scoop
+
+        print('Price of Bowl- {} : {}'.format(Bowl.__bowl_sold,total_price))
+
+    @staticmethod
+    def sold():
+        print( '{} bowls sold'.format(Bowl.__bowl_sold))
+
+choco = Scoop('chocolate', 1)
+choco.set_price(100)
+print(choco)
+
+
+berry = Scoop('berry', 2)
+berry.set_price(120)
+print(berry)
+
+vanilla = Scoop('vanilla') # no of scoop parameter not given, will take default value
+vanilla.set_price(150)
+print(vanilla)
+
+bowl1 = Bowl() # max_scoop parameter not given, will take default value
+bowl1.add_scoops(choco) # Giving one parameter
+bowl1.add_scoops(berry, vanilla) # Multiple
+bowl1.display()
+
+bowl2 = Bowl(2)
+bowl2.add_scoops(berry)
+bowl2.add_scoops(choco)
+
+bowl2.display()
+Bowl.sold()
+
+
+
+        
+
+    
+
+
+
 
 
 
