@@ -1,0 +1,5 @@
+Here I study concept of aggregation and inheritance.
+  aggregation is a type of relationship between classes, basically classes has 'HAS A RELATIONSHIP' in them . Is is concept in which one class owns other class
+  and object of one class is passed as an argument to other class object . Owner class can access data and methods of owned class.
+
+  Inheritance is basically other type of realtionship between classes where a child class can access data and methods of parent class
