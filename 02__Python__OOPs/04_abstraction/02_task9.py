@@ -153,3 +153,46 @@ p=P()
 p.show()
 
 
+'''Q-6: FlexibleDict
+As of now we are accessing values from dictionary with exact keys. Now we want to amend accessing values functionality. 
+if a dict have key 1 (int) the even if we try to access values by 
+giving '1' (1 as str) as key, we should get the same result and vice versa.
+
+Write a class FlexibleDict upon builtin dict class with above required functionality.
+
+Hint- dict[key] => dict.__getitem__(key)
+
+Ex.
+fd = FlexibleDict()
+fd['a'] = 100
+print(fd['a']) # Like regular dict
+
+fd[5] = 500
+print(fd[5]) # Like regular dict
+
+fd[1] = 100
+print(fd['1']) # actual Key is int but still trying to access through str key.
+fd['1'] = 100
+print(fd[1])
+Output:
+100
+500
+100
+100'''
+
+class FlexibleDict(dict):
+    def __getitem__(self,key):
+        if key in  self:
+            return super().__getitem__(key)
+        else:
+            if isinstance(key,str):
+                return super().__getitem__(int(key))
+
+            else:
+                return super().__getitem__(str(key))
+
+fd=FlexibleDict()
+fd[1]=100
+print(fd['1'])
+
+print(fd['a'])
